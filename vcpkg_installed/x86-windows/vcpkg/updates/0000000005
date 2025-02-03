@@ -1,0 +1,8 @@
+Package: libuv
+Version: 1.49.2
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows
+Multi-Arch: same
+Abi: 29ec393621d3591022eb1bfa9650a727c1891b2370bada9df38ca68ec703137c
+Description: libuv is a multi-platform support library with a focus on asynchronous I/O.
+Status: install ok installed

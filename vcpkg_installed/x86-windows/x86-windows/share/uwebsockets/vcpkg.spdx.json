@@ -1,0 +1,132 @@
+{
+  "$schema": "https://raw.githubusercontent.com/spdx/spdx-spec/v2.2.1/schemas/spdx-schema.json",
+  "spdxVersion": "SPDX-2.2",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "documentNamespace": "https://spdx.org/spdxdocs/uwebsockets-x86-windows-20.71.0-51a47d5f-0052-413f-bf76-d930662b9290",
+  "name": "uwebsockets:x86-windows@20.71.0 732c28cccd6e58445e885eb4cebe881837ffc545fc992406aa8b577c2aeb8756",
+  "creationInfo": {
+    "creators": [
+      "Tool: vcpkg-2024-11-12-eb492805e92a2c14a230f5c3deb3e89f6771c321"
+    ],
+    "created": "2025-02-03T01:19:30Z"
+  },
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "GENERATES",
+      "relatedSpdxElement": "SPDXRef-binary"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-0"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-1"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-2"
+    },
+    {
+      "spdxElementId": "SPDXRef-binary",
+      "relationshipType": "GENERATED_FROM",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-0",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-1",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-2",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    }
+  ],
+  "packages": [
+    {
+      "name": "uwebsockets",
+      "SPDXID": "SPDXRef-port",
+      "versionInfo": "20.71.0",
+      "downloadLocation": "git+https://github.com/Microsoft/vcpkg@378799c0e7e9f97bfd3b80aa9776a798f287f34d",
+      "homepage": "https://github.com/uWebSockets/uWebSockets",
+      "licenseConcluded": "Apache-2.0",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "description": "Simple, secure & standards compliant web I/O for the most demanding of applications",
+      "comment": "This is the port (recipe) consumed by vcpkg."
+    },
+    {
+      "name": "uwebsockets:x86-windows",
+      "SPDXID": "SPDXRef-binary",
+      "versionInfo": "732c28cccd6e58445e885eb4cebe881837ffc545fc992406aa8b577c2aeb8756",
+      "downloadLocation": "NONE",
+      "licenseConcluded": "Apache-2.0",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "comment": "This is a binary package built by vcpkg."
+    },
+    {
+      "SPDXID": "SPDXRef-resource-1",
+      "name": "uNetworking/uWebSockets",
+      "downloadLocation": "git+https://github.com/uNetworking/uWebSockets@v20.71.0",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "542de9c2e007c37b6c25e58d58de6a4aa9b6f19b4b681856e40094d49e5c5c132798e79dc384b4609a8f876491779874e2778c76d7b00c16e53f44f4726739b5"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "./C:/Users/Gamer/AppData/Local/vcpkg/registries/git-trees/378799c0e7e9f97bfd3b80aa9776a798f287f34d/portfile.cmake",
+      "SPDXID": "SPDXRef-file-0",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3b2f98a2491f2225e980fe78b6bea6adb6cca5b0b0c9861b638e5fa90a4902fc"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./C:/Users/Gamer/AppData/Local/vcpkg/registries/git-trees/378799c0e7e9f97bfd3b80aa9776a798f287f34d/unofficial-uwebsockets-config.cmake",
+      "SPDXID": "SPDXRef-file-1",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "60b5b004fa090176ac2b2f4ef8b224a82653dae55fddc7035d85f0081ee3a86a"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./C:/Users/Gamer/AppData/Local/vcpkg/registries/git-trees/378799c0e7e9f97bfd3b80aa9776a798f287f34d/vcpkg.json",
+      "SPDXID": "SPDXRef-file-2",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "195bd71db34eb47ad86f6fdcedd3c7236698216fc08787324648293d545d17d8"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    }
+  ]
+}

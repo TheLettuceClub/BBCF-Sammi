@@ -15,7 +15,66 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClInclude Include="BBCF-Sammi\BB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BBCF-Sammi\dinput8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BBCF-Sammi\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BBCF-Sammi\pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BBCF-Sammi\Print.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BBCF-Sammi\targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BBCF-Sammi\Zydis.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BBCF-Sammi\WebSockets.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BBCF-Sammi\safetyhook.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BBCF-Sammi\BBFramework.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BBCF-Sammi\SAMMITypes.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BBCF-Sammi\struct_util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BBCF-Sammi\dinput8.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BBCF-Sammi\dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BBCF-Sammi\pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BBCF-Sammi\Print.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BBCF-Sammi\safetyhook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BBCF-Sammi\WebSockets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BBCF-Sammi\Zydis.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BBCF-Sammi\BBFramework.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

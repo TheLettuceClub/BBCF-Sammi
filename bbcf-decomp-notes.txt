@@ -1,0 +1,36 @@
+known offsets for BATTLE_CObjectManager
+9d4 = health (done)
+5ad4 = heat
+5ae4 = OD gauge
+5b04 = barrier
+2010c = drive??
+20108 = max drive???
+1338 = sprite string
+2014 = current action string
+1ff4 = previous action string
+1a0 = "burning heart" (bang thing)
+
+
+Stuff Pan said 2/1:
+an attacks ability to fatal counter can be tested by doing (field & 0x800) != 0, and the field offset is 0x4A0
+offset 0x191720 is what you want to hook for CreateObject events
+
+also, im not sure what else you need right now, but if you want a good way to find stuff, you should investigate the scripts to see if theres any instructions you want to hook, then find those in the script memory (usually by jumping to a text result for a specific sprite or whatever) and then breakpointing on the instruction
+you can get the scripts with this tool i wrote here, it has parsers for BBCFs archive format
+https://github.com/super-continent/arcsys
+(not super useful)
+
+look at stuff that writes to health values for onHit funcs
+
+bbcf.exe+0x182655 is a func that runs once per char per frame
+also +0x2997a7 (twice per visual frame update)
+	once is esi=0, second is esi=1
+
++0x18C3C0 is generalized hit/block point
+	eax is ptr to attacker?
+	esi is ptr to defender?
+	also works for projectiles, where attacker will be ptr to it's BCOM
+	
++0x2126f6 runs immediately after character select is done, solid for round init
+
+for round end, just check for someone having no health and CmnActRoundWin or similar
