@@ -14,7 +14,7 @@ Very WIP at the moment! Expect bugs, inconsistencies, and lack of data. Please g
 This software does not enable cheating. It only exposes a read-only version of the game's state for other software. If you make a cheat with this code you suck as a human being, and I'm not liable for your crappy life or its resultant choices.
 
 ## API overview
-The mod sends out 5 types of events based on the state of the game. They are detailed below.
+The mod sends out 6 types of events based on the state of the game. They are detailed below.
 Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
 <br><br>
 #### State Update:
@@ -91,6 +91,13 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
 		* sprite
 		* frameCount
 		
+#### Timeout
+* Abstract: Fires whenever the game goes to the main menu or lobby for any reason. Usable to detect sudden quits or similar
+* Fields:
+* data
+	* event: "bbcf_timeout"
+
+
 ## Contact:
 Please only contact me if you have issues or major feature requests. Do not ask me how to set up stuff in SAMMI, other documentation covers that.
 To reach me:
