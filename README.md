@@ -6,7 +6,7 @@ Very WIP at the moment! Expect bugs, inconsistencies, and lack of data. Please g
 ## Installation
 1. Navigate to your BBCF install directory. You can right click on the game in Steam and then click "browse local files" under "manage" to get to the right folder.
 2. Put all three .dll files in the release zip into that folder, next to BBCF.exe
-    * If you're also using BBCFIM, rename my dinput8.dll to BBCF-sammi.dll, and add it to BBCFIM's settings.ini at the bottom where it says "DinputDllWrapper".
+    * At the moment, this mod is **not** compatible with any version of the BBCF Improvement Mod. Your game will crash if used together!
 3. Launch the game. If a console window appears with some text as the game launches, then it's working.
 4. Connect with your client of choice (port: 42617). This is implementation specific. SAMMI instructions to come soon (tm).
 
@@ -35,6 +35,10 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
     			* drive
     			* maxDrive
     			* side
+			* inGameTimer (in seconds)
+			* matchState (see SAMMITypes.hpp for an enum of these values)
+			* gameMode
+			* gameState
     		* frameCount
 
 #### Hit Event:
@@ -59,23 +63,26 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
 		* frameCount
 
 #### Round Start:
-* Abstract: fires whenever a round starts. Will have more data eventually.
+* Abstract: fires whenever a round starts. Only fires once. Successive roundstarts should be notified by any data after a roundEndEvent
 * Fields:
 * data
 	* event: "bbcf_roundStartEvent"
 	* eventInfo
+		* rounds
 		* frameCount
 
 #### Round End:
-* Abstract: fires whenever a round ends. Will have more data eventually.
+* Abstract: fires whenever a round ends. Fires multiple times per round no matter how fast the animation is skipped.
 * Fields:
 * data
 	* event: "bbcf_roundEndEvent"
 	* eventInfo
+		* winner (p1, p2, or none)
+		* winType (KO or timeout)
 		* frameCount
 
 #### Object Creation:
-* Abstract: Fires whenever a new game object (particle effect, projectile, etc) is created. May have more info eventually.
+* Abstract: Fires whenever a new game object (particle effect, projectile, etc) is created. There will be a lot of these, ignore them if you don't have a use.
 * Fields:
 * data
 	* event: "bbcf_objectCreatedEvent"

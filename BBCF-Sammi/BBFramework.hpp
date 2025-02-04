@@ -18,6 +18,10 @@ private:
 	SafetyHookMid RoundStart_Hook;
 	SafetyHookMid RoundEnd_Hook;
 	SafetyHookMid SpriteUpdate_Hook;
+	SafetyHookMid TitleScreen_Hook;
+	SafetyHookMid MenuScreen_Hook;
+	SafetyHookMid LobbyState_Hook;
+	SafetyHookMid MatchVariables_Hook;
 	auto initalize() -> void;
 
 public:

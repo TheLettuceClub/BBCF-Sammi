@@ -1,0 +1,1 @@
+test if roundEndEvent can reliably be used as a "timeout" trigger. meaning that, after a vs game ends, is roundEnd the last message fired.
