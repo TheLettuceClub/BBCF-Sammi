@@ -7259,6 +7259,16 @@ dealloc(newmem1)
               </Offsets>
             </CheatEntry>
             <CheatEntry>
+              <ID>577</ID>
+              <Description>"P2 pos x?"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>B28</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
               <ID>494</ID>
               <Description>"P2 Max HP"</Description>
               <ShowAsSigned>0</ShowAsSigned>

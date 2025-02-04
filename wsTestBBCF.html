@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script>
+			//const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+			let webSocket = new WebSocket('ws://127.0.0.1:6615/');
+			webSocket.onopen = function(e) {
+				console.log("Connected to bbcf WS");
+				let dateTime = Date.now();
+				console.log("Unix time is now: "+dateTime);
+				webSocket.send(dateTime);
+			}
+			webSocket.onmessage = function(e) {
+				console.log("WS recieved: "+e.data);
+			}
+			webSocket.onerror = function(e) {
+				console.log("WS error: "+e);
+				webSocket.close();
+			}
+			//getData();
+			//async function getData() {
+				//while (true) {
+					//webSocket.send("data");
+					//console.log("sending data");
+					//await sleep(1000/16);
+				//}
+			//}
+		</script>
+	</head>
+</html>

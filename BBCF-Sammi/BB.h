@@ -2,6 +2,7 @@
 #include "struct_util.h"
 
 struct Battle_CObject {
+	FIELD(0x30, int, side);
 	FIELD(0x48C, int, attackLevel);
 	FIELD(0x490, int, damageUnscaledNot5A);
 	FIELD(0x4A0, int, attackFlag);
@@ -10,6 +11,7 @@ struct Battle_CObject {
 	FIELD(0x668, int, airPushbackY);
 	FIELD(0x694, int, airPushbackX);
 	FIELD(0x9D4, int, health);
+	FIELD(0xB28, int, posx);
 	ARRAY_FIELD(0x1338, char[16], sprite);
 	ARRAY_FIELD(0x1FF4, char[32], prevAction);
 	ARRAY_FIELD(0x2014, char[32], currAction);

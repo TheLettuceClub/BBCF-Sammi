@@ -12,10 +12,12 @@ private:
 	static std::mutex mtx;
 
 	//safetyhooks here
-	SafetyHookMid CreateObject_hook;
+	SafetyHookMid FrameStep_Hook;
+	SafetyHookMid CreateObject_Hook;
 	SafetyHookMid AttackHit_Hook;
 	SafetyHookMid RoundStart_Hook;
 	SafetyHookMid RoundEnd_Hook;
+	SafetyHookMid SpriteUpdate_Hook;
 	auto initalize() -> void;
 
 public:

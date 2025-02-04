@@ -9,11 +9,14 @@ known offsets for BATTLE_CObjectManager
 2014 = current action string
 1ff4 = previous action string
 1a0 = "burning heart" (bang thing)
+B28 = position X
+30 = side (p1/2)
 
 
 Stuff Pan said 2/1:
 an attacks ability to fatal counter can be tested by doing (field & 0x800) != 0, and the field offset is 0x4A0
 offset 0x191720 is what you want to hook for CreateObject events
+	ebx,ecx is creator?/object in ref
 
 also, im not sure what else you need right now, but if you want a good way to find stuff, you should investigate the scripts to see if theres any instructions you want to hook, then find those in the script memory (usually by jumping to a text result for a specific sprite or whatever) and then breakpointing on the instruction
 you can get the scripts with this tool i wrote here, it has parsers for BBCFs archive format
@@ -25,12 +28,17 @@ look at stuff that writes to health values for onHit funcs
 bbcf.exe+0x182655 is a func that runs once per char per frame
 also +0x2997a7 (twice per visual frame update)
 	once is esi=0, second is esi=1
++16B01B is marginally better at exactly once per frame
++182655 happens every sprite update
+	ebx/ecx here is ptr to updating chars BCOM
+	no indicator of which is which, but p1 always ends in A80, p2 in 3F8
 
 +0x18C3C0 is generalized hit/block point
 	eax is ptr to attacker?
 	esi is ptr to defender?
 	also works for projectiles, where attacker will be ptr to it's BCOM
 	
-+0x2126f6 runs immediately after character select is done, solid for round init
++0x2126f6 runs immediately after character select is done, solid for round init. doesn't trigger on vs mode rematch
++0x1584EF is basically perfect round start. runs twice per start, twice per transition after intro?
 
-for round end, just check for someone having no health and CmnActRoundWin or similar
++0x1c83C4 is round end heat reset, runs twice, also on skipped
