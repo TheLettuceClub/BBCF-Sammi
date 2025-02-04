@@ -24,7 +24,7 @@ struct StateUpdate {
 	unsigned long int frameCount{};
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(StateUpdate, p1, p2, frameCount);
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(StateUpdate, p1, p2, frameCount)
 
 struct HitEvent {
 	std::string attacker{};
@@ -39,16 +39,19 @@ struct HitEvent {
 	int airPushbackX{};
 	int airPushbackY{};
 	unsigned int damage{};
+	unsigned int scalingTicks{};
 	unsigned long int frameCount{};
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(HitEvent, attacker, defender, attackerAction, defenderAction, defenderPrevAction, attackLevel, attackFlag, untechTime, hitstopOverride, airPushbackX, airPushbackY, damage, frameCount)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(HitEvent, scalingTicks, attacker, defender, attackerAction, defenderAction, defenderPrevAction, attackLevel, attackFlag, untechTime, hitstopOverride, airPushbackX, airPushbackY, damage, frameCount)
 
 struct CreateObject {
-	unsigned long int frameCount{}; //TODO: fill in later
+	std::string sprite{};
+	std::string currAction{};
+	unsigned long int frameCount{}; //TODO: owner if possible
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(CreateObject, frameCount)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(CreateObject, sprite, currAction, frameCount)
 
 struct RoundStart {
 	unsigned long int frameCount{}; //TODO: fill in later

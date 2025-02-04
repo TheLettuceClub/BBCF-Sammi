@@ -6941,6 +6941,16 @@ dealloc(newmem1)
             </CheatEntry>
             <CheatEntry>
               <ID>496</ID>
+              <Description>"P1 Base"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+892998</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>583</ID>
               <Description>"P1 HP"</Description>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
@@ -7073,12 +7083,32 @@ dealloc(newmem1)
             </CheatEntry>
             <CheatEntry>
               <ID>575</ID>
-              <Description>"P1 Damage (Scaled)"</Description>
+              <Description>"P1 Damage (Scaled, TRAINING MODE)"</Description>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>BBCF.exe+892998</Address>
               <Offsets>
                 <Offset>2A110</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>585</ID>
+              <Description>"P1 Damage (Scaled)"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+892998</Address>
+              <Offsets>
+                <Offset>250CC</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>586</ID>
+              <Description>"P1 incoming damage"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+892998</Address>
+              <Offsets>
+                <Offset>5780</Offset>
               </Offsets>
             </CheatEntry>
             <CheatEntry>
@@ -7139,6 +7169,26 @@ dealloc(newmem1)
               <Address>BBCF.exe+892998</Address>
               <Offsets>
                 <Offset>4A0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>578</ID>
+              <Description>"P1 Side 2"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+892998</Address>
+              <Offsets>
+                <Offset>38</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>579</ID>
+              <Description>"P1 Scaling"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+892998</Address>
+              <Offsets>
+                <Offset>5770</Offset>
               </Offsets>
             </CheatEntry>
             <CheatEntry>
@@ -7250,6 +7300,16 @@ dealloc(newmem1)
             </CheatEntry>
             <CheatEntry>
               <ID>492</ID>
+              <Description>"P2 Base"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>584</ID>
               <Description>"P2 HP"</Description>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
@@ -7329,6 +7389,26 @@ dealloc(newmem1)
               </Offsets>
             </CheatEntry>
             <CheatEntry>
+              <ID>582</ID>
+              <Description>"P2 Damage (Scaled)"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>250CC</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>587</ID>
+              <Description>"P2 incoming damage"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>5780</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
               <ID>562</ID>
               <Description>"P2 Sprite"</Description>
               <ShowAsSigned>0</ShowAsSigned>
@@ -7368,6 +7448,26 @@ dealloc(newmem1)
               <Address>BBCF.exe+89299C</Address>
               <Offsets>
                 <Offset>1FF4</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>580</ID>
+              <Description>"P2 Side 2"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>38</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>581</ID>
+              <Description>"P2 Scaling"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>5770</Offset>
               </Offsets>
             </CheatEntry>
             <CheatEntry>

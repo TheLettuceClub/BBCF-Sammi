@@ -35,8 +35,11 @@ static void sendEvent(std::string eventName, std::string customData) {
 // function hooks here
 static void hook_CreateObject(SafetyHookContext& ctx) {
 	// should be called when object created. ebx/ecx here is ptr to object?? TODO: expand!
+	const Battle_CObject* obj = reinterpret_cast<Battle_CObject*>(ctx.ebx);
 	CreateObject co{};
 	co.frameCount = frameCounter;
+	co.currAction = &obj->currAction[0];
+	co.sprite = &obj->sprite[0];
 	json j = co;
 	std::thread(sendEvent, "bbcf_objectCreatedEvent", j.dump()).detach();
 }
@@ -61,12 +64,13 @@ static void hook_AttackHit(SafetyHookContext& ctx) {
 	he.attackerAction = &attacker->currAction[0];
 	he.attackFlag = attacker->attackFlag;
 	he.attackLevel = attacker->attackLevel;
-	he.damage = attacker->damageScaled; // this is VERY inconsistent! For p1, it only updates to the new scaled value after! the first hit, though it usually work fine in a combo. It does not work at all for p2!!!! TODO: find a new value
+	he.damage = defender->incomingDamage; // actually the damage of the whole combo, not individual move damage
 	he.defender = defender->side ? "Player 2" : "Player 1";
 	he.defenderAction = &defender->currAction[0];
 	he.defenderPrevAction = &defender->prevAction[0];
 	he.hitstopOverride = attacker->hitstopOverride;
 	he.untechTime = attacker->untechTime;
+	he.scalingTicks = defender->incomingScalingTicks; // ticks of combo scaling, i'm sure dustloop has info about this
 	json j = he;
 	std::thread(sendEvent, "bbcf_hitEvent", j.dump()).detach();
 }
