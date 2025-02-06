@@ -14,6 +14,7 @@ std::thread messageHandler;
 worker_t worker{};
 StateUpdate state{};
 bool bRoundStarted = false;
+bool bRoundEnded = false;
 int* pGameState{};
 int* pGameMode{};
 int* pMatchState{};
@@ -39,7 +40,7 @@ static void sendEvent(std::string eventName, std::string customData) {
 // function hooks here
 static void hook_CreateObject(SafetyHookContext& ctx) {
 	// should be called when object created. ebx/ecx here is ptr to object TODO: expand!
-	const Battle_CObject* obj = reinterpret_cast<Battle_CObject*>(ctx.ebx);
+	const BATTLE_CObjectManager* obj = reinterpret_cast<BATTLE_CObjectManager*>(ctx.ebx);
 	CreateObject co{};
 	co.frameCount = frameCounter;
 	co.currAction = &obj->currAction[0];
@@ -60,10 +61,33 @@ static void hook_FrameStep(SafetyHookContext& ctx) {
 	frameCounter++;
 }
 
+static void hook_AttackHitCheck(SafetyHookContext& ctx) {
+	// called on hit and block but damage isn't there so just use for block. called before AttackHit on hit
+	// eax is ptr attacker, esi ptr defender. also called for projectiles
+	// if defender's stateflag2 and stateflag4 are set, they're blocking, else do nothing
+	const BATTLE_CObjectManager* attacker = reinterpret_cast<BATTLE_CObjectManager*>(ctx.eax);
+	const BATTLE_CObjectManager* defender = reinterpret_cast<BATTLE_CObjectManager*>(ctx.esi);
+	if (defender->stateFlag2) {
+		GuardEvent ge{};
+		ge.frameCount = frameCounter;
+		ge.attacker = attacker->side ? "Player 2" : "Player 1";
+		ge.defender = defender->side ? "Player 2" : "Player 1";
+		ge.attackerAction = &attacker->currAction[0];
+		ge.attackLevel = attacker->attackLevel;
+		ge.chipDamage = defender->health - defender->prevHealth;
+		ge.defenderAction = &defender->currAction[0];
+		ge.blockDir = getBlockDir(defender->stateFlag, defender->stateFlag4);
+		ge.blockMethod = getBlockMeth(defender->stateFlag4);
+		ge.moveType = attacker->moveType;
+		json j = ge;
+		std::thread(sendEvent, "bbcf_guardEvent", j.dump()).detach();
+	}
+}
+
 static void hook_AttackHit(SafetyHookContext& ctx) {
-	// called on hit and block. eax is ptr attacker, esi ptr defender. also called for projectiles
-	const Battle_CObject* attacker = reinterpret_cast<Battle_CObject*>(ctx.eax);
-	const Battle_CObject* defender = reinterpret_cast<Battle_CObject*>(ctx.esi);
+	// called on hit ONLY. ebx is ptr defender, edi ptr attacker. also called for projectiles
+	const BATTLE_CObjectManager* attacker = reinterpret_cast<BATTLE_CObjectManager*>(ctx.edi);
+	const BATTLE_CObjectManager* defender = reinterpret_cast<BATTLE_CObjectManager*>(ctx.ebx);
 	HitEvent he{};
 	he.frameCount = frameCounter;
 	he.attacker = attacker->side ? "Player 2" : "Player 1";
@@ -79,45 +103,43 @@ static void hook_AttackHit(SafetyHookContext& ctx) {
 	he.hitstopOverride = attacker->hitstopOverride;
 	he.untechTime = attacker->untechTime;
 	he.scalingTicks = defender->incomingScalingTicks; // ticks of combo scaling, i'm sure dustloop has info about this
+	he.comboCount = defender->incomingComboCount;
+	he.moveType = attacker->moveType;
 	json j = he;
 	std::thread(sendEvent, "bbcf_hitEvent", j.dump()).detach();
 }
 
-static void roundStart() {
-	// called when either player has "entry" in their action name. likely called twice even if intros skipped so it still locks
-	if (!bRoundStarted) {
-		frameCounter = 0;
-		RoundStart rs{};
-		rs.rounds = *pMatchRounds;
-		rs.frameCount = frameCounter;
-		json j = rs;
-		std::thread(sendEvent, "bbcf_roundStartEvent", j.dump()).detach();
-		bRoundStarted = true;
+static void hook_RoundTransition(SafetyHookContext& ctx) {
+	// here ebx/ecx is ptr to one of player structs
+	RoundTransition rt{};
+	rt.frameCount = frameCounter;
+	rt.p1Act = state.p1.currAction;
+	rt.p2Act = state.p2.currAction;
+	rt.p1Health = state.p1.health;
+	rt.p2Health = state.p2.health;
+	if (rt.p1Act == "" && rt.p2Act == "") {
+		rt.likelyNext = "RoundStartNew";
 	}
-}
-
-static void roundEnd(const Battle_CObject* winner) {
-	// called whenever either player has "CmnAct???Win" in their action name
-	RoundEnd re{};
-	re.winner = winner->side ? "Player 2" : "Player 1";
-	re.winType = (*pMatchTimer) ? "KO" : "Timeout";
-	re.frameCount = frameCounter;
-	json j = re;
-	std::thread(sendEvent, "bbcf_roundEndEvent", j.dump()).detach();
-	bRoundStarted = false;
+	if ((rt.p1Act.contains("RoundWin") || rt.p2Act.contains("RoundWin")) && (rt.p1Act.contains("DownLoop") || rt.p2Act.contains("DownLoop"))) {
+		rt.likelyNext = "RoundEndIntoStart";
+	}
+	if (rt.p1Act.contains("DownLoop") && rt.p2Act.contains("DownLoop")) {
+		rt.likelyNext = "RoundEndByDoubleKO";
+	}
+	if (rt.p1Act.contains("MatchWin") || rt.p2Act.contains("MatchWin")) {
+		rt.likelyNext = "RoundEndByKO";
+	}
+	if (rt.p1Act.contains("CmnActLose") || rt.p2Act.contains("CmnActLose")) {
+		rt.likelyNext = "RoundEndByTimeout";
+	}
+	json j = rt;
+	std::thread(sendEvent, "bbcf_roundTransitionEvent", j.dump()).detach();
+	frameCounter = 0;
 }
 
 static void hook_SpriteUpdate(SafetyHookContext& ctx) {
 	// called every sprite update, ebx/ecx hold ptr to BCOM of updating character
-	const Battle_CObject* updater = reinterpret_cast<Battle_CObject*>(ctx.ebx);
-	// detect round start and end via stringchecks
-	std::string currAct = &updater->currAction[0];
-	if (currAct.contains("CmnActEntry")) { // might filter out special intros, idk
-		roundStart();
-	}
-	if (currAct.contains("CmnAct") && currAct.contains("Win")) { // should match against "CmnActRoundWin", "CmnActMatchWin" and other variants
-		roundEnd(updater); //TODO: likely doesn't work on double ko!
-	}
+	const BATTLE_CObjectManager* updater = reinterpret_cast<BATTLE_CObjectManager*>(ctx.ebx);
 	// determine which player is being updated and update their slot in the StateUpdate
 	PlayerState* ps;
 	if (updater->side == 0) {
@@ -130,9 +152,9 @@ static void hook_SpriteUpdate(SafetyHookContext& ctx) {
 		return;
 	}
 	ps->barrierGauge = updater->barrierGauge;
-	ps->character = std::string(&updater->sprite[0]).substr(0, 2);
-	ps->currAction = currAct;
-	ps->drive = updater->drive;
+	ps->character = std::string(&updater->sprite[0]).substr(0,2);
+	ps->currAction = &updater->currAction[0];
+	ps->drive = updater->drive; //TODO: expand?
 	ps->health = updater->health;
 	ps->heat = updater->heat;
 	ps->maxDrive = updater->maxDrive;
@@ -140,20 +162,25 @@ static void hook_SpriteUpdate(SafetyHookContext& ctx) {
 	ps->posx = updater->posx;
 	ps->prevAction = &updater->prevAction[0];
 	ps->side = updater->side;
+	ps->ODTimeRemaining = updater->overdriveTimeleft;
+	ps->posy = updater->posy;
+	ps->moveType = updater->moveType;
 }
 
-void hook_TitleScreen(SafetyHookContext& ctx) {
+static void hook_TitleScreen(SafetyHookContext& ctx) {
 	// here edi+0x108 is the game mode, get a ptr to it. edi+0x10C is game state, also ptr it.
 	pGameState = (int*)(ctx.edi + 0x10C);
 	pGameMode = (int*)(ctx.edi + 0x108);
 }
 
-void hook_Timeout(SafetyHookContext& ctx) {
+static void hook_Timeout(SafetyHookContext& ctx) {
 	// called by various functions that generally signal that a running game is over
+	state.p1.currAction = "";
+	state.p2.currAction = ""; // stupid stinky hack to get transition detector working right
 	std::thread(sendEvent, "bbcf_Timeout", "{}").detach();
 }
 
-void hook_MatchVars(SafetyHookContext& ctx) {
+static void hook_MatchVars(SafetyHookContext& ctx) {
 	// here ecx+0x30 is match state, +0x18 is match timer, +0x4 is match rounds
 	pMatchState = (int*)(ctx.ecx + 0x30);
 	pMatchRounds = (int*)(ctx.ecx + 0x4);
@@ -166,9 +193,10 @@ auto BBFramework::initalize() -> void {
 	// set function and data hooks here
 	CreateObject_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x191720, hook_CreateObject);
 	FrameStep_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x16B01B, hook_FrameStep);
-	AttackHit_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x18C3C0, hook_AttackHit);
+	AttackHitCheck_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x18C3C0, hook_AttackHitCheck);
+	AttackHit_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1C1D93, hook_AttackHit);
 	//RoundStart_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1584EF, hook_RoundStart);
-	//RoundEnd_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1C83C4, hook_RoundEnd);
+	RoundTransition_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1C83C4, hook_RoundTransition);
 	SpriteUpdate_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x182655, hook_SpriteUpdate);
 	TitleScreen_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1F9AEE, hook_TitleScreen);
 	MenuScreen_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x32DD33, hook_Timeout);

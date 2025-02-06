@@ -77,5 +77,8 @@
     <ClCompile Include="BBCF-Sammi\BBFramework.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BBCF-Sammi\SAMMITypes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

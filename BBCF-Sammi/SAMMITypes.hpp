@@ -60,6 +60,7 @@ enum GameMode
 struct PlayerState {
 	unsigned int health{};
 	int posx{};
+	int posy{};
 	std::string character{};
 	std::string prevAction{};
 	std::string currAction{};
@@ -69,9 +70,11 @@ struct PlayerState {
 	int drive{};
 	int maxDrive{};
 	int side{};
+	int ODTimeRemaining{};
+	int moveType{};
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(PlayerState, health, posx, character, prevAction, currAction, heat, Overdrive, barrierGauge, drive, maxDrive, side)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(PlayerState, moveType, posy, ODTimeRemaining, health, posx, character, prevAction, currAction, heat, Overdrive, barrierGauge, drive, maxDrive, side)
 
 struct StateUpdate {
 	PlayerState p1{};
@@ -97,12 +100,32 @@ struct HitEvent {
 	int hitstopOverride{};
 	int airPushbackX{};
 	int airPushbackY{};
+	int moveType{};
 	unsigned int damage{};
 	unsigned int scalingTicks{};
+	unsigned int comboCount{};
 	unsigned long int frameCount{};
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(HitEvent, scalingTicks, attacker, defender, attackerAction, defenderAction, defenderPrevAction, attackLevel, attackFlag, untechTime, hitstopOverride, airPushbackX, airPushbackY, damage, frameCount)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(HitEvent, moveType, comboCount, scalingTicks, attacker, defender, attackerAction, defenderAction, defenderPrevAction, attackLevel, attackFlag, untechTime, hitstopOverride, airPushbackX, airPushbackY, damage, frameCount)
+
+struct GuardEvent {
+	std::string attacker{};
+	std::string defender{};
+	std::string attackerAction{};
+	std::string defenderAction{};
+	unsigned int attackLevel{};
+	std::string blockDir{};
+	std::string blockMethod{};
+	unsigned int chipDamage{};
+	int moveType{};
+	unsigned long int frameCount{};
+};
+
+std::string getBlockDir(short, short);
+std::string getBlockMeth(short);
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GuardEvent, moveType, chipDamage, attacker, defender, attackerAction, defenderAction, attackLevel, blockDir, blockMethod, frameCount)
 
 struct CreateObject {
 	std::string sprite{};
@@ -112,17 +135,13 @@ struct CreateObject {
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(CreateObject, sprite, currAction, frameCount)
 
-struct RoundStart {
-	int rounds{};
+struct RoundTransition {
+	std::string likelyNext{};
+	std::string p1Act{};
+	std::string p2Act{};
+	int p1Health{};
+	int p2Health{};
 	unsigned long int frameCount{};
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(RoundStart, rounds, frameCount)
-
-struct RoundEnd {
-	std::string winner{}; // p1, p2, none
-	std::string winType{}; // KO, timeout
-	unsigned long int frameCount{};
-};
-
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(RoundEnd, winner, winType, frameCount)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(RoundTransition, likelyNext, p1Act, p2Act, p1Health, p2Health, frameCount)

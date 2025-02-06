@@ -26,6 +26,7 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
     		* p1/2
     			* health
     			* posx
+				* posy
     			* character
     			* prevAction
     			* currAction
@@ -35,6 +36,8 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
     			* drive
     			* maxDrive
     			* side
+				* ODTimeRemaining
+				* moveType
 			* inGameTimer (in seconds)
 			* matchState (see SAMMITypes.hpp for an enum of these values)
 			* gameMode
@@ -42,7 +45,7 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
     		* frameCount
 
 #### Hit Event:
-* Abstract: fires every time any character gets hit or blocks
+* Abstract: fires every time any character gets hit.
 * Fields:
 * data
 	* event: "bbcf_hitEvent"
@@ -60,25 +63,37 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
 		* airPushbackY
 		* damage
 		* scalingTicks
+		* comboCount
 		* frameCount
 
-#### Round Start:
-* Abstract: fires whenever a round starts. Only fires once. Successive roundstarts should be notified by any data after a roundEndEvent
+#### Guard Event:
+* Abstract: fires every time any character blocks.
 * Fields:
 * data
-	* event: "bbcf_roundStartEvent"
+	* event: "bbcf_guardEvent"
 	* eventInfo
-		* rounds
+		* attacker
+		* attackerAction
+		* defender
+		* defenderAction
+		* attackLevel
+		* blockDir
+		* blockMethod (sometimes wrong)
+		* chipDamage
+		* moveType
 		* frameCount
 
-#### Round End:
-* Abstract: fires whenever a round ends. Fires multiple times per round no matter how fast the animation is skipped.
+#### Round Transition:
+* Abstract: fires whenever a round starts or ends. Fires multiple times per round no matter how fast the animation is skipped.
 * Fields:
 * data
-	* event: "bbcf_roundEndEvent"
+	* event: "bbcf_roundTransitionEvent"
 	* eventInfo
-		* winner (p1, p2, or none)
-		* winType (KO or timeout)
+		* likelyNext
+		* p1Act
+		* p2Act
+		* p1Health
+		* p2Health
 		* frameCount
 
 #### Object Creation:
@@ -92,10 +107,10 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
 		* frameCount
 		
 #### Timeout
-* Abstract: Fires whenever the game goes to the main menu or lobby for any reason. Usable to detect sudden quits or similar
+* Abstract: Fires whenever the game goes to the main menu or lobby for any reason. Usable to detect sudden quits or similar.
 * Fields:
 * data
-	* event: "bbcf_timeout"
+	* event: "bbcf_Timeout"
 
 
 ## Contact:

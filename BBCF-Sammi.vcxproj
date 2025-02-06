@@ -39,6 +39,7 @@
     <ClCompile Include="BBCF-Sammi\pch.cpp" />
     <ClCompile Include="BBCF-Sammi\Print.cpp" />
     <ClCompile Include="BBCF-Sammi\safetyhook.cpp" />
+    <ClCompile Include="BBCF-Sammi\SAMMITypes.cpp" />
     <ClCompile Include="BBCF-Sammi\WebSockets.cpp" />
     <ClCompile Include="BBCF-Sammi\Zydis.c" />
   </ItemGroup>

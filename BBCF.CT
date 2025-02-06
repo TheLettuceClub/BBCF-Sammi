@@ -6883,6 +6883,351 @@ dealloc(newmem1)
       </CheatEntries>
     </CheatEntry>
     <CheatEntry>
+      <ID>588</ID>
+      <Description>"P1 base"</Description>
+      <Options moHideChildren="1"/>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>BBCF.exe+892998</Address>
+      <Offsets>
+        <Offset>0</Offset>
+      </Offsets>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>614</ID>
+          <Description>"ptr ptr to smthn"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+0</Address>
+          <Offsets>
+            <Offset>0</Offset>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>615</ID>
+          <Description>"frame Counter (resets)"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+4</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>616</ID>
+          <Description>"hitstop"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+8</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>590</ID>
+          <Description>"side"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+30</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>617</ID>
+          <Description>"doing attack"</Description>
+          <ShowAsSigned>1</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+ac</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>618</ID>
+          <Description>"duration??"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+FC</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>621</ID>
+          <Description>"ch state???"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Byte</VariableType>
+          <Address>+129</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>622</ID>
+          <Description>"move duration"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+160</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>623</ID>
+          <Description>"moveDuration2"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+164</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>624</ID>
+          <Description>"endOfHitstun"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+178</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>610</ID>
+          <Description>"burning heart 1"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+1a0</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>613</ID>
+          <Description>"burning heart 2"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+1a4</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>612</ID>
+          <Description>"burning heart 3"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+1a8</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>611</ID>
+          <Description>"burning heart 4"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+1ac</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>625</ID>
+          <Description>"stateFlag"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+254</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>626</ID>
+          <Description>"stateFlag2"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+25c</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>619</ID>
+          <Description>"posy"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+26c</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>627</ID>
+          <Description>"incomingHBstun?"</Description>
+          <ShowAsSigned>1</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+2ec</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>628</ID>
+          <Description>"velocityX"</Description>
+          <ShowAsSigned>1</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+2f4</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>629</ID>
+          <Description>"velocityY"</Description>
+          <ShowAsSigned>1</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+2fc</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>630</ID>
+          <Description>"moveAddVeloX"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+304</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>631</ID>
+          <Description>"hasMoveConnected"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+480</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>632</ID>
+          <Description>"doingMove"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+488</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>591</ID>
+          <Description>"attackLevel"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+48c</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>592</ID>
+          <Description>"damageUnscaleNot5A"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+490</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>633</ID>
+          <Description>"def something"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+494</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>593</ID>
+          <Description>"attackFlag"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+4A0</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>594</ID>
+          <Description>"hitstopOverride"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+4B0</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>595</ID>
+          <Description>"airPushbackY"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+668</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>596</ID>
+          <Description>"untechTime"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+684</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>597</ID>
+          <Description>"airPushbackX"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+694</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>634</ID>
+          <Description>"incomingP1val"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+7ac</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>635</ID>
+          <Description>"test"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+82c</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>598</ID>
+          <Description>"health"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+9d4</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>599</ID>
+          <Description>"posX"</Description>
+          <ShowAsSigned>1</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+b28</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>600</ID>
+          <Description>"sprite"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>16</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>+1338</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>601</ID>
+          <Description>"prevAction"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>32</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>+1FF4</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>602</ID>
+          <Description>"currAction"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>32</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>+2014</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>603</ID>
+          <Description>"incomingScalingTicks"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+5770</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>604</ID>
+          <Description>"incomingDamage"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+5780</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>605</ID>
+          <Description>"heat"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+5ad4</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>606</ID>
+          <Description>"Overdrive"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+5ae4</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>607</ID>
+          <Description>"barrierGauge"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+5b04</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>608</ID>
+          <Description>"maxDrive"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+20108</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>609</ID>
+          <Description>"drive"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>+2010C</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
       <ID>560</ID>
       <Description>"Pointers"</Description>
       <Options moHideChildren="1"/>
@@ -7340,6 +7685,26 @@ dealloc(newmem1)
             </CheatEntry>
             <CheatEntry>
               <ID>484</ID>
+              <Description>"P2 incoming scaling"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>5770</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>637</ID>
+              <Description>"P2 incoming hits?"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>5774</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>636</ID>
               <Description>"P2 Heat"</Description>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
