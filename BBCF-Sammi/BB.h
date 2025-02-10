@@ -29,6 +29,7 @@ struct BATTLE_CObjectManager {
 	FIELD(0x5AD4, int, heat)
 	FIELD(0x5AE4, int, OverdriveAmnt)
 	FIELD(0x5B04, int, barrierGauge)
+	FIELD(0x2005C, int, activeFlow)
 	FIELD(0x20108, int, maxDrive)
 	FIELD(0x2010C, int, drive)
 };

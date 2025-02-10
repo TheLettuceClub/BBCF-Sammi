@@ -38,6 +38,7 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
     			* side
 				* ODTimeRemaining
 				* moveType
+				* activeFlow
 			* inGameTimer (in seconds)
 			* matchState (see SAMMITypes.hpp for an enum of these values)
 			* gameMode
@@ -52,9 +53,11 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
 	* eventInfo
 		* attacker
 		* attackerAction
+		* attackerActiveFlow
 		* defender
 		* defenderAction
 		* defenderPrevAction
+		* defenderActiveFlow
 		* attackLevel
 		* attackFlag
 		* untechTime
@@ -74,8 +77,10 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
 	* eventInfo
 		* attacker
 		* attackerAction
+		* attackerActiveFlow
 		* defender
 		* defenderAction
+		* defenderActiveFlow
 		* attackLevel
 		* blockDir
 		* blockMethod (sometimes wrong)

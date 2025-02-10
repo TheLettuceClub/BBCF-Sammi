@@ -79,6 +79,8 @@ static void hook_AttackHitCheck(SafetyHookContext& ctx) {
 		ge.blockDir = getBlockDir(defender->stateFlag, defender->stateFlag4);
 		ge.blockMethod = getBlockMeth(defender->stateFlag4);
 		ge.moveType = attacker->moveType;
+		ge.attackerActiveFlow = attacker->activeFlow;
+		ge.defenderActiveFlow = defender->activeFlow;
 		json j = ge;
 		std::thread(sendEvent, "bbcf_guardEvent", j.dump()).detach();
 	}
@@ -105,6 +107,8 @@ static void hook_AttackHit(SafetyHookContext& ctx) {
 	he.scalingTicks = defender->incomingScalingTicks; // ticks of combo scaling, i'm sure dustloop has info about this
 	he.comboCount = defender->incomingComboCount;
 	he.moveType = attacker->moveType;
+	he.attackerActiveFlow = attacker->activeFlow;
+	he.defenderActiveFlow = defender->activeFlow;
 	json j = he;
 	std::thread(sendEvent, "bbcf_hitEvent", j.dump()).detach();
 }
@@ -165,6 +169,7 @@ static void hook_SpriteUpdate(SafetyHookContext& ctx) {
 	ps->ODTimeRemaining = updater->overdriveTimeleft;
 	ps->posy = updater->posy;
 	ps->moveType = updater->moveType;
+	ps->activeFlow = updater->activeFlow;
 }
 
 static void hook_TitleScreen(SafetyHookContext& ctx) {
@@ -191,17 +196,17 @@ static void hook_MatchVars(SafetyHookContext& ctx) {
 auto BBFramework::initalize() -> void {
 	base = GetModuleHandle(NULL);
 	// set function and data hooks here
-	CreateObject_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x191720, hook_CreateObject);
-	FrameStep_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x16B01B, hook_FrameStep);
-	AttackHitCheck_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x18C3C0, hook_AttackHitCheck);
-	AttackHit_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1C1D93, hook_AttackHit);
+	CreateObject_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x191720, hook_CreateObject); //func: 0x191720
+	FrameStep_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x16B01B, hook_FrameStep); //func: 16aff0
+	AttackHitCheck_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x18C3C0, hook_AttackHitCheck); //func: 18c377
+	AttackHit_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1C1D93, hook_AttackHit); //func: 0x1c17f0
 	//RoundStart_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1584EF, hook_RoundStart);
-	RoundTransition_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1C83C4, hook_RoundTransition);
-	SpriteUpdate_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x182655, hook_SpriteUpdate);
-	TitleScreen_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1F9AEE, hook_TitleScreen);
-	MenuScreen_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x32DD33, hook_Timeout);
-	LobbyState_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x34B811, hook_Timeout);
-	MatchVariables_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x15F67F, hook_MatchVars);
+	RoundTransition_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1C83C4, hook_RoundTransition); //func: 1c7fa2
+	SpriteUpdate_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x182655, hook_SpriteUpdate); //func: 182620
+	TitleScreen_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1F9AEE, hook_TitleScreen); //func: 1f9a40
+	MenuScreen_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x32DD33, hook_Timeout); //func: 32dd10
+	LobbyState_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x34B811, hook_Timeout); //func: 34b7f0
+	MatchVariables_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x15F67F, hook_MatchVars); //func: 15f5c0
 }
 
 auto BBFramework::get_instance() -> BBFramework*

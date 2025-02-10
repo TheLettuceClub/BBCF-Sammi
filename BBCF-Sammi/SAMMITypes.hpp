@@ -72,9 +72,10 @@ struct PlayerState {
 	int side{};
 	int ODTimeRemaining{};
 	int moveType{};
+	int activeFlow{};
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(PlayerState, moveType, posy, ODTimeRemaining, health, posx, character, prevAction, currAction, heat, Overdrive, barrierGauge, drive, maxDrive, side)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(PlayerState, activeFlow, moveType, posy, ODTimeRemaining, health, posx, character, prevAction, currAction, heat, Overdrive, barrierGauge, drive, maxDrive, side)
 
 struct StateUpdate {
 	PlayerState p1{};
@@ -104,10 +105,12 @@ struct HitEvent {
 	unsigned int damage{};
 	unsigned int scalingTicks{};
 	unsigned int comboCount{};
+	int attackerActiveFlow{};
+	int defenderActiveFlow{};
 	unsigned long int frameCount{};
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(HitEvent, moveType, comboCount, scalingTicks, attacker, defender, attackerAction, defenderAction, defenderPrevAction, attackLevel, attackFlag, untechTime, hitstopOverride, airPushbackX, airPushbackY, damage, frameCount)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(HitEvent, attackerActiveFlow, defenderActiveFlow, moveType, comboCount, scalingTicks, attacker, defender, attackerAction, defenderAction, defenderPrevAction, attackLevel, attackFlag, untechTime, hitstopOverride, airPushbackX, airPushbackY, damage, frameCount)
 
 struct GuardEvent {
 	std::string attacker{};
@@ -119,13 +122,15 @@ struct GuardEvent {
 	std::string blockMethod{};
 	unsigned int chipDamage{};
 	int moveType{};
+	int attackerActiveFlow{};
+	int defenderActiveFlow{};
 	unsigned long int frameCount{};
 };
 
 std::string getBlockDir(short, short);
 std::string getBlockMeth(short);
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GuardEvent, moveType, chipDamage, attacker, defender, attackerAction, defenderAction, attackLevel, blockDir, blockMethod, frameCount)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GuardEvent, attackerActiveFlow, defenderActiveFlow, moveType, chipDamage, attacker, defender, attackerAction, defenderAction, attackLevel, blockDir, blockMethod, frameCount)
 
 struct CreateObject {
 	std::string sprite{};
