@@ -3,6 +3,10 @@
 
 struct BATTLE_CObjectManager {
 	FIELD(0x30, int, side)
+	FIELD(0x1A0, int, oldCharDrive1) //Bang's first seal and robot swords??
+	FIELD(0x1A4, int, oldCharDrive2) //Bang's second seal
+	FIELD(0x1A8, int, oldCharDrive3) //bang's third seal
+	FIELD(0x1AC, int, oldCharDrive4) //bang's fourth seal and maybe some other stuff
 	FIELD(0x1C0, int, overdriveTimeleft)
 	FIELD(0x254, short, stateFlag)
 	FIELD(0x256, short, stateFlag2)
@@ -20,6 +24,8 @@ struct BATTLE_CObjectManager {
 	FIELD(0x9D0, int, prevHealth)
 	FIELD(0x9D4, int, health)
 	FIELD(0xB28, int, posx)
+	FIELD(0x1E9C0, int, installDriveUnlocked) // susan's unlocked seals
+	FIELD(0x1E9C4, int, installDriveSelected) // which seal susan is selecting on the HUD
 	ARRAY_FIELD(0x1338, char[16], sprite)
 	ARRAY_FIELD(0x1FF4, char[32], prevAction)
 	ARRAY_FIELD(0x2014, char[32], currAction)
@@ -30,8 +36,8 @@ struct BATTLE_CObjectManager {
 	FIELD(0x5AE4, int, OverdriveAmnt)
 	FIELD(0x5B04, int, barrierGauge)
 	FIELD(0x2005C, int, activeFlow)
-	FIELD(0x20108, int, maxDrive)
-	FIELD(0x2010C, int, drive)
+	FIELD(0x20108, int, maxDrive) //if a char has a timer on any move, this is the max value. ex: bullet drive, robo grav seed
+	FIELD(0x2010C, int, drive) //if a char has a timer, this is the current value of it. ex: bullet drive, robo grav seed
 };
 
 //class BATTLE_CObjectManager //from cfim, causes crashes!
