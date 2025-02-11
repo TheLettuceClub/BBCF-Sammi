@@ -1,5 +1,4 @@
 add filtering to hook_SpriteUpdate, Krack was getting object values in there. Use 0xA80 for p1, 0x3F8 for p2.
 Look into adding a thread that detects game/match state changes, potentially to replace roundTransition w/greater accuracy.
 find more values lol
-  drive-specific stuff (might overlap w/burning heart)
-  <>
+decode the drive state vars
