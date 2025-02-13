@@ -7133,9 +7133,29 @@ dealloc(newmem1)
             </CheatEntry>
             <CheatEntry>
               <ID>576</ID>
-              <Description>"P1 Unknown Thingy"</Description>
+              <Description>"P1 Active Flow"</Description>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+892998</Address>
+              <Offsets>
+                <Offset>2005C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>642</ID>
+              <Description>"P1 Previous HP"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+892998</Address>
+              <Offsets>
+                <Offset>9D0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>645</ID>
+              <Description>"P1 unknown thing"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
               <Address>BBCF.exe+892998</Address>
               <Offsets>
                 <Offset>9C4</Offset>
@@ -7199,6 +7219,66 @@ dealloc(newmem1)
               <Address>BBCF.exe+892998</Address>
               <Offsets>
                 <Offset>38</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>647</ID>
+              <Description>"P1 blockstun"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+892998</Address>
+              <Offsets>
+                <Offset>2274</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>648</ID>
+              <Description>"P1 hitstun"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+892998</Address>
+              <Offsets>
+                <Offset>5170</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>649</ID>
+              <Description>"P1 combo damage 2"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+892998</Address>
+              <Offsets>
+                <Offset>5784</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>650</ID>
+              <Description>"P1 combo proration"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+892998</Address>
+              <Offsets>
+                <Offset>578C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>651</ID>
+              <Description>"P1 starter rating"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+892998</Address>
+              <Offsets>
+                <Offset>5790</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>652</ID>
+              <Description>"P1 combo time"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+892998</Address>
+              <Offsets>
+                <Offset>5794</Offset>
               </Offsets>
             </CheatEntry>
             <CheatEntry>
@@ -7369,6 +7449,16 @@ dealloc(newmem1)
               </Offsets>
             </CheatEntry>
             <CheatEntry>
+              <ID>646</ID>
+              <Description>"P2 unknown thing"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>9C4</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
               <ID>637</ID>
               <Description>"P2 incoming hits?"</Description>
               <ShowAsSigned>0</ShowAsSigned>
@@ -7376,6 +7466,17 @@ dealloc(newmem1)
               <Address>BBCF.exe+89299C</Address>
               <Offsets>
                 <Offset>5774</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>659</ID>
+              <Description>"P2 incoming hits?"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>1F0</Offset>
               </Offsets>
             </CheatEntry>
             <CheatEntry>
@@ -7419,6 +7520,66 @@ dealloc(newmem1)
               </Offsets>
             </CheatEntry>
             <CheatEntry>
+              <ID>653</ID>
+              <Description>"P2 blockstun"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>2274</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>654</ID>
+              <Description>"P2 hitstun"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>5170</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>655</ID>
+              <Description>"P2 combo damage 2"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>5784</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>656</ID>
+              <Description>"P2 combo proration"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>578C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>657</ID>
+              <Description>"P2 starter rating"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>5790</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>658</ID>
+              <Description>"P2 combo time"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>5794</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
               <ID>638</ID>
               <Description>"P2 Susan Unlocked Seals"</Description>
               <ShowAsSigned>0</ShowAsSigned>
@@ -7436,6 +7597,26 @@ dealloc(newmem1)
               <Address>BBCF.exe+89299C</Address>
               <Offsets>
                 <Offset>1e9c4</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>643</ID>
+              <Description>"P2 Active Flow"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>2005C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>644</ID>
+              <Description>"P2 Previous HP"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>BBCF.exe+89299C</Address>
+              <Offsets>
+                <Offset>9D0</Offset>
               </Offsets>
             </CheatEntry>
             <CheatEntry>

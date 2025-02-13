@@ -15,7 +15,7 @@ private:
 	SafetyHookMid FrameStep_Hook;
 	SafetyHookMid CreateObject_Hook;
 	SafetyHookMid AttackHit_Hook;
-	SafetyHookMid AttackHitCheck_Hook;
+	SafetyHookMid AttackGuard_Hook;
 	//SafetyHookMid RoundStart_Hook;
 	SafetyHookMid RoundTransition_Hook;
 	SafetyHookMid SpriteUpdate_Hook;

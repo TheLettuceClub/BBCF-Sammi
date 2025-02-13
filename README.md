@@ -40,9 +40,6 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
 				* moveType
 				* activeFlow
 			* inGameTimer (in seconds)
-			* matchState (see SAMMITypes.hpp for an enum of these values)
-			* gameMode
-			* gameState
     		* frameCount
 
 #### Hit Event:
@@ -82,23 +79,21 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
 		* defenderAction
 		* defenderActiveFlow
 		* attackLevel
-		* blockDir
-		* blockMethod (sometimes wrong)
-		* chipDamage
 		* moveType
 		* frameCount
 
 #### Round Transition:
-* Abstract: fires whenever a round starts or ends. Fires multiple times per round no matter how fast the animation is skipped.
+* Abstract: fires approximately when there's a change in either of the three states. Check SAMMITypes.hpp for full enumeration.
 * Fields:
 * data
 	* event: "bbcf_roundTransitionEvent"
 	* eventInfo
-		* likelyNext
-		* p1Act
-		* p2Act
-		* p1Health
-		* p2Health
+		* currGameMode
+		* prevGameMode
+		* currGameState
+		* prevGameState
+		* currMatchState
+		* prevMatchState
 		* frameCount
 
 #### Object Creation:

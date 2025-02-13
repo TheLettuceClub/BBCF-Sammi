@@ -12,6 +12,15 @@ enum MatchState
 	MatchState_VictoryScreen = 7
 };
 
+NLOHMANN_JSON_SERIALIZE_ENUM(MatchState, {
+	{MatchState_NotStarted, "MatchNotStarted"},
+	{MatchState_RebelActionRoundSign, "REBEL"},
+	{MatchState_Fight, "Fight"},
+	{MatchState_FinishSign, "FINISH"},
+	{MatchState_WinLoseSign, "WinLose"},
+	{MatchState_VictoryScreen, "VictoryScreen"},
+	})
+
 enum GameState
 {
 	GameState_ArcsysLogo = 2,
@@ -39,6 +48,16 @@ enum GameState
 	GameState_DCodeEdit = 39,
 };
 
+NLOHMANN_JSON_SERIALIZE_ENUM(GameState, {
+	{GameState_TitleScreen, "TitleScreen"},
+	{GameState_CharacterSelectionScreen, "CSS"},
+	{GameState_VersusScreen, "VS"},
+	{GameState_InMatch, "InMatch"},
+	{GameState_VictoryScreen, "VictoryScreen"},
+	{GameState_MainMenu, "MainMenu"},
+	{GameState_Lobby, "Lobby"},
+	})
+
 enum GameMode
 {
 	GameMode_Arcade = 1,
@@ -56,6 +75,16 @@ enum GameMode
 	GameMode_Abyss = 16,
 	GameMode_DCodeEdit = 18,
 };
+
+NLOHMANN_JSON_SERIALIZE_ENUM(GameMode, {
+	{GameMode_Versus, "Versus"},
+	{GameMode_Training, "Training"},
+	{GameMode_Arcade, "Arcade"},
+	{GameMode_Challenge, "Challenge"},
+	{GameMode_TitleScreen, "TitleScreen"},
+	{GameMode_MainMenuScreen, "MainMenu"},
+	{GameMode_Online, "Online"},
+	})
 
 struct PlayerState {
 	unsigned int health{};
@@ -81,13 +110,10 @@ struct StateUpdate {
 	PlayerState p1{};
 	PlayerState p2{};
 	int inGameTimer{};
-	int matchState{}; // TODO: enum these later
-	int gameMode{};
-	int gameState{};
 	unsigned long int frameCount{};
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(StateUpdate, matchState, inGameTimer, gameMode, gameState, p1, p2, frameCount)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(StateUpdate, inGameTimer, p1, p2, frameCount)
 
 struct HitEvent {
 	std::string attacker{};
@@ -118,19 +144,16 @@ struct GuardEvent {
 	std::string attackerAction{};
 	std::string defenderAction{};
 	unsigned int attackLevel{};
-	std::string blockDir{};
-	std::string blockMethod{};
-	unsigned int chipDamage{};
 	int moveType{};
 	int attackerActiveFlow{};
 	int defenderActiveFlow{};
 	unsigned long int frameCount{};
 };
 
-std::string getBlockDir(short, short);
+std::string getBlockDir(short, short); //TODO: find values to fix this!
 std::string getBlockMeth(short);
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GuardEvent, attackerActiveFlow, defenderActiveFlow, moveType, chipDamage, attacker, defender, attackerAction, defenderAction, attackLevel, blockDir, blockMethod, frameCount)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GuardEvent, attackerActiveFlow, defenderActiveFlow, moveType, attacker, defender, attackerAction, defenderAction, attackLevel, frameCount)
 
 struct CreateObject {
 	std::string sprite{};
@@ -141,12 +164,13 @@ struct CreateObject {
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(CreateObject, sprite, currAction, frameCount)
 
 struct RoundTransition {
-	std::string likelyNext{};
-	std::string p1Act{};
-	std::string p2Act{};
-	int p1Health{};
-	int p2Health{};
+	MatchState currMatchState{};
+	MatchState prevMatchState{};
+	GameState currGameState{};
+	GameState prevGameState{};
+	GameMode prevGameMode{};
+	GameMode currGameMode{};
 	unsigned long int frameCount{};
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(RoundTransition, likelyNext, p1Act, p2Act, p1Health, p2Health, frameCount)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(RoundTransition, prevGameMode, currGameMode, currMatchState, prevMatchState, currGameState, prevGameState)

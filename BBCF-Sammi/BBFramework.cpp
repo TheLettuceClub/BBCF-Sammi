@@ -52,39 +52,28 @@ static void hook_CreateObject(SafetyHookContext& ctx) {
 static void hook_FrameStep(SafetyHookContext& ctx) {
 	// runs once per frame, use as time reference
 	state.frameCount = frameCounter;
-	state.gameMode = *pGameMode;
-	state.gameState = *pGameState;
 	state.inGameTimer = (*pMatchTimer)/60; // to convert frames to seconds
-	state.matchState = *pMatchState;
 	json j = state;
 	std::thread(sendEvent, "bbcf_stateUpdate", j.dump()).detach();
 	frameCounter++;
 }
 
-static void hook_AttackHitCheck(SafetyHookContext& ctx) {
-	// called on hit and block but damage isn't there so just use for block. called before AttackHit on hit
-	// eax is ptr attacker, esi ptr defender. also called for projectiles
-	// if defender's stateflag2 and stateflag4 are set, they're blocking, else do nothing
-	const BATTLE_CObjectManager* attacker = reinterpret_cast<BATTLE_CObjectManager*>(ctx.eax);
-	const BATTLE_CObjectManager* defender = reinterpret_cast<BATTLE_CObjectManager*>(ctx.esi);
-	std::string defAct = &defender->currAction[0];
-	if (defender->stateFlag2 && defender->stateFlag4 && !defAct.contains("Hit")) { //TODO: incorrectly sends a guardevent if something is incorrectly blocked. FIND MORE VALUES!
-		GuardEvent ge{};
-		ge.frameCount = frameCounter;
-		ge.attacker = attacker->side ? "Player 2" : "Player 1";
-		ge.defender = defender->side ? "Player 2" : "Player 1";
-		ge.attackerAction = &attacker->currAction[0];
-		ge.attackLevel = attacker->attackLevel;
-		ge.chipDamage = defender->health - defender->prevHealth;
-		ge.defenderAction = defAct;
-		ge.blockDir = getBlockDir(defender->stateFlag, defender->stateFlag4);
-		ge.blockMethod = getBlockMeth(defender->stateFlag4);
-		ge.moveType = attacker->moveType;
-		ge.attackerActiveFlow = attacker->activeFlow;
-		ge.defenderActiveFlow = defender->activeFlow;
-		json j = ge;
-		std::thread(sendEvent, "bbcf_guardEvent", j.dump()).detach();
-	}
+static void hook_AttackGuard(SafetyHookContext& ctx) {
+	// called only on block!! ebx/edi here is ptr to defender
+	const BATTLE_CObjectManager* defender = reinterpret_cast<BATTLE_CObjectManager*>(ctx.edi);
+	const BATTLE_CObjectManager* attacker = defender->enemy;
+	GuardEvent ge{};
+	ge.frameCount = frameCounter;
+	ge.attacker = attacker->side ? "Player 2" : "Player 1";
+	ge.defender = defender->side ? "Player 2" : "Player 1";
+	ge.attackerAction = &attacker->currAction[0];
+	ge.attackLevel = attacker->attackLevel;
+	ge.defenderAction = &defender->currAction[0];
+	ge.moveType = attacker->moveType;
+	ge.attackerActiveFlow = attacker->activeFlow;
+	ge.defenderActiveFlow = defender->activeFlow;
+	json j = ge;
+	std::thread(sendEvent, "bbcf_guardEvent", j.dump()).detach();
 }
 
 static void hook_AttackHit(SafetyHookContext& ctx) {
@@ -114,33 +103,59 @@ static void hook_AttackHit(SafetyHookContext& ctx) {
 	std::thread(sendEvent, "bbcf_hitEvent", j.dump()).detach();
 }
 
-static void hook_RoundTransition(SafetyHookContext& ctx) {
-	// here ebx/ecx is ptr to one of player structs
-	RoundTransition rt{};
-	rt.frameCount = frameCounter;
-	rt.p1Act = state.p1.currAction;
-	rt.p2Act = state.p2.currAction;
-	rt.p1Health = state.p1.health;
-	rt.p2Health = state.p2.health;
-	if (rt.p1Act == "" && rt.p2Act == "") {
-		rt.likelyNext = "RoundStartNew";
+void stateWatcher() {
+	static int gameState = 0;
+	static int matchState = 0;
+	static int gameMode = 0;
+	while (true) {
+		std::this_thread::sleep_for(std::chrono::seconds(2));
+		if (pGameState && pMatchState && pGameMode) {
+			if (gameState != *pGameState || matchState != *pMatchState || gameMode != *pGameMode) {
+				RoundTransition rt{};
+				rt.frameCount = frameCounter;
+				rt.currGameMode = (GameMode)(*pGameMode);
+				rt.prevGameMode = (GameMode)(gameMode);
+				rt.currGameState = (GameState)(*pGameState);
+				rt.prevGameState = (GameState)(gameState);
+				rt.currMatchState = (MatchState)(*pMatchState);
+				rt.prevMatchState = (MatchState)(matchState);
+				gameState = *pGameState;
+				matchState = *pMatchState;
+				gameMode = *pGameMode;
+				json j = rt;
+				std::thread(sendEvent, "bbcf_roundTransitionEvent", j.dump()).detach();
+			}
+		}
 	}
-	if ((rt.p1Act.contains("RoundWin") || rt.p2Act.contains("RoundWin")) && (rt.p1Act.contains("DownLoop") || rt.p2Act.contains("DownLoop"))) {
-		rt.likelyNext = "RoundEndIntoStart";
-	}
-	if (rt.p1Act.contains("DownLoop") && rt.p2Act.contains("DownLoop")) {
-		rt.likelyNext = "RoundEndByDoubleKO";
-	}
-	if (rt.p1Act.contains("MatchWin") || rt.p2Act.contains("MatchWin")) {
-		rt.likelyNext = "RoundEndByKO";
-	}
-	if (rt.p1Act.contains("CmnActLose") || rt.p2Act.contains("CmnActLose")) {
-		rt.likelyNext = "RoundEndByTimeout";
-	}
-	json j = rt;
-	std::thread(sendEvent, "bbcf_roundTransitionEvent", j.dump()).detach();
-	frameCounter = 0;
 }
+
+//static void hook_RoundTransition(SafetyHookContext& ctx) {
+//	// here ebx/ecx is ptr to one of player structs
+//	RoundTransition rt{};
+//	rt.frameCount = frameCounter;
+//	rt.p1Act = state.p1.currAction;
+//	rt.p2Act = state.p2.currAction;
+//	rt.p1Health = state.p1.health;
+//	rt.p2Health = state.p2.health;
+//	if (rt.p1Act == "" && rt.p2Act == "") {
+//		rt.likelyNext = "RoundStartNew";
+//	}
+//	if ((rt.p1Act.contains("RoundWin") || rt.p2Act.contains("RoundWin")) && (rt.p1Act.contains("DownLoop") || rt.p2Act.contains("DownLoop"))) {
+//		rt.likelyNext = "RoundEndIntoStart";
+//	}
+//	if (rt.p1Act.contains("DownLoop") && rt.p2Act.contains("DownLoop")) {
+//		rt.likelyNext = "RoundEndByDoubleKO";
+//	}
+//	if (rt.p1Act.contains("MatchWin") || rt.p2Act.contains("MatchWin")) {
+//		rt.likelyNext = "RoundEndByKO";
+//	}
+//	if (rt.p1Act.contains("CmnActLose") || rt.p2Act.contains("CmnActLose")) {
+//		rt.likelyNext = "RoundEndByTimeout";
+//	}
+//	json j = rt;
+//	std::thread(sendEvent, "bbcf_roundTransitionEvent", j.dump()).detach();
+//	frameCounter = 0;
+//}
 
 static void hook_SpriteUpdate(SafetyHookContext& ctx) {
 	// called every sprite update, ebx/ecx hold ptr to BCOM of updating character
@@ -181,8 +196,8 @@ static void hook_TitleScreen(SafetyHookContext& ctx) {
 
 static void hook_Timeout(SafetyHookContext& ctx) {
 	// called by various functions that generally signal that a running game is over
-	state.p1.currAction = "";
-	state.p2.currAction = ""; // stupid stinky hack to get transition detector working right
+	/*state.p1.currAction = "";
+	state.p2.currAction = "";*/ // stupid stinky hack to get transition detector working right
 	std::thread(sendEvent, "bbcf_Timeout", "{}").detach();
 }
 
@@ -193,16 +208,15 @@ static void hook_MatchVars(SafetyHookContext& ctx) {
 	pMatchTimer = (int*)(ctx.ecx + 0x18);
 }
 
-
 auto BBFramework::initalize() -> void {
 	base = GetModuleHandle(NULL);
 	// set function and data hooks here
 	CreateObject_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x191720, hook_CreateObject); //func: 0x191720
 	FrameStep_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x16B01B, hook_FrameStep); //func: 16aff0
-	AttackHitCheck_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x18C3C0, hook_AttackHitCheck); //func: 18c377
+	AttackGuard_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1C4066, hook_AttackGuard); //func: 18c377
 	AttackHit_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1C1D93, hook_AttackHit); //func: 0x1c17f0
 	//RoundStart_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1584EF, hook_RoundStart);
-	RoundTransition_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1C83C4, hook_RoundTransition); //func: 1c7fa2
+	//RoundTransition_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1C83C4, hook_RoundTransition); //func: 1c7fa2
 	SpriteUpdate_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x182655, hook_SpriteUpdate); //func: 182620
 	TitleScreen_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x1F9AEE, hook_TitleScreen); //func: 1f9a40
 	MenuScreen_Hook = safetyhook::create_mid(reinterpret_cast<uintptr_t>(base) + 0x32DD33, hook_Timeout); //func: 32dd10
@@ -219,6 +233,7 @@ auto BBFramework::get_instance() -> BBFramework*
 		{
 			instance = new BBFramework();
 			initalizeWSServer();
+			std::thread(stateWatcher).detach();
 		}
 	}
 	return instance;
