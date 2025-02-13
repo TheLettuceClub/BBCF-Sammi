@@ -67,7 +67,8 @@ static void hook_AttackHitCheck(SafetyHookContext& ctx) {
 	// if defender's stateflag2 and stateflag4 are set, they're blocking, else do nothing
 	const BATTLE_CObjectManager* attacker = reinterpret_cast<BATTLE_CObjectManager*>(ctx.eax);
 	const BATTLE_CObjectManager* defender = reinterpret_cast<BATTLE_CObjectManager*>(ctx.esi);
-	if (defender->stateFlag2) {
+	std::string defAct = &defender->currAction[0];
+	if (defender->stateFlag2 && defender->stateFlag4 && !defAct.contains("Hit")) { //TODO: incorrectly sends a guardevent if something is incorrectly blocked. FIND MORE VALUES!
 		GuardEvent ge{};
 		ge.frameCount = frameCounter;
 		ge.attacker = attacker->side ? "Player 2" : "Player 1";
@@ -75,7 +76,7 @@ static void hook_AttackHitCheck(SafetyHookContext& ctx) {
 		ge.attackerAction = &attacker->currAction[0];
 		ge.attackLevel = attacker->attackLevel;
 		ge.chipDamage = defender->health - defender->prevHealth;
-		ge.defenderAction = &defender->currAction[0];
+		ge.defenderAction = defAct;
 		ge.blockDir = getBlockDir(defender->stateFlag, defender->stateFlag4);
 		ge.blockMethod = getBlockMeth(defender->stateFlag4);
 		ge.moveType = attacker->moveType;
@@ -146,10 +147,10 @@ static void hook_SpriteUpdate(SafetyHookContext& ctx) {
 	const BATTLE_CObjectManager* updater = reinterpret_cast<BATTLE_CObjectManager*>(ctx.ebx);
 	// determine which player is being updated and update their slot in the StateUpdate
 	PlayerState* ps;
-	if (updater->side == 0) {
+	if (updater->side == 0 && (ctx.ebx & 0xA80)==0xA80) {
 		ps = &state.p1;
 	}
-	else if (updater->side == 1) {
+	else if (updater->side == 1 && (ctx.ebx & 0x3F8) == 0x3F8) {
 		ps = &state.p2;
 	}
 	else {
