@@ -1,3 +1,2 @@
-Look into adding a thread that detects game/match state changes, potentially to replace roundTransition w/greater accuracy.
 find more values lol
 decode the drive state vars (see cfim stuff)
