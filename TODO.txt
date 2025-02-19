@@ -1,2 +1,3 @@
+change timer to be in frames
 find more values lol
 decode the drive state vars (see cfim stuff)
