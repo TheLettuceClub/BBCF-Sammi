@@ -11,7 +11,7 @@
 *.sln.docstates
 
 # vcpkg_installed
-**/vcpkg_installed
+vcpkg_installed/
 
 # Build results
 [Dd]ebug/
