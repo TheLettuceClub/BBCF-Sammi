@@ -46,72 +46,73 @@ Each event consists of a JSON object with multiple fields. Tabbing implies a '.'
 #### Hit Event:
 * Abstract: fires every time any character gets hit.
 * Fields:
-* data
-	* event: "bbcf_hitEvent"
-	* eventInfo
-		* attacker
-		* attackerAction
-		* attackerActiveFlow
-		* defender
-		* defenderAction
-		* defenderPrevAction
-		* defenderActiveFlow
-		* attackLevel
-		* attackFlag
-		* untechTime
-		* hitstopOverride
-		* airPushbackX
-		* airPushbackY
-		* damage
-		* scalingTicks
-		* comboCount
-		* frameCount
+	* data
+		* event: "bbcf_hitEvent"
+		* eventInfo
+			* attacker
+			* attackerAction
+			* attackerActiveFlow
+			* defender
+			* defenderAction
+			* defenderPrevAction
+			* defenderActiveFlow
+			* attackLevel
+			* attackFlag
+			* untechTime
+			* hitstopOverride
+			* airPushbackX
+			* airPushbackY
+			* damage
+			* scalingTicks
+			* comboCount
+			* frameCount
 
 #### Guard Event:
 * Abstract: fires every time any character blocks.
 * Fields:
-* data
-	* event: "bbcf_guardEvent"
-	* eventInfo
-		* attacker
-		* attackerAction
-		* attackerActiveFlow
-		* defender
-		* defenderAction
-		* defenderActiveFlow
-		* attackLevel
-		* moveType
-		* frameCount
+	* data
+		* event: "bbcf_guardEvent"
+		* eventInfo
+			* attacker
+			* attackerAction
+			* attackerActiveFlow
+			* defender
+			* defenderAction
+			* defenderActiveFlow
+			* attackLevel
+			* moveType
+			* frameCount
 
 #### Round Transition:
 * Abstract: fires approximately when there's a change in either of the three states. Check SAMMITypes.hpp for full enumeration.
 * Fields:
-* data
-	* event: "bbcf_roundTransitionEvent"
-	* eventInfo
-		* currGameMode
-		* prevGameMode
-		* currGameState
-		* prevGameState
-		* currMatchState
-		* prevMatchState
-		* frameCount
+	* data
+		* event: "bbcf_roundTransitionEvent"
+		* eventInfo
+			* currGameMode
+			* prevGameMode
+			* currGameState
+			* prevGameState
+			* currMatchState
+			* prevMatchState
+			* frameCount
 
 #### Object Creation:
 * Abstract: Fires whenever a new game object (particle effect, projectile, etc) is created. There will be a lot of these, ignore them if you don't have a use.
 * Fields:
-* data
-	* event: "bbcf_objectCreatedEvent"
-	* eventInfo
-		* currAction
-		* sprite
-		* frameCount
+	* data
+		* event: "bbcf_objectCreatedEvent"
+		* eventInfo
+			* currAction
+			* sprite
+			* frameCount
 		
 #### Timeout
 * Abstract: Fires whenever the game goes to the main menu or lobby for any reason. Usable to detect sudden quits or similar.
 * Fields:
-* data
-	* event: "bbcf_Timeout"
+	* data
+		* event: "bbcf_Timeout"
+		* No other fields
 
 
 ## Contact:
