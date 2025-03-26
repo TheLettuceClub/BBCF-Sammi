@@ -58,28 +58,6 @@
 				}
 			}
 			
-			/*async function stateUpdate(eventInfo) {
-				const thediv = document.getElementById("stateUpdate");
-				let frameCount = getChildElementById(thediv, "frameCount");
-				frameCount.textContent = eventInfo.frameCount;
-				let inGameTimer = getChildElementById(thediv, "inGameTimer");
-				inGameTimer.textContent = eventInfo.inGameTimer;
-				let p1 = getChildElementById(thediv, "p1");
-				for (let key in eventInfo.p1) {
-					let val = eventInfo.p1[key];
-					console.log(key +": "+ val);
-					let obj = getChildElementById(p1, key);
-					obj.textContent = val;
-				}
-				let p2 = getChildElementById(thediv, "p2");
-				for (var key in eventInfo.p2) {
-					var val = eventInfo.p2[key];
-					console.log(key +": "+ val);
-					let obj = getChildElementById(p2, key);
-					obj.textContent = val;
-				}
-			}*/
-			
 			function getChildElementById(parent, childId) {
 				for (let i = 0; i < parent.childElementCount; i++) {
 					if (parent.children[i].id === childId) {
@@ -88,12 +66,6 @@
 				}
 				return null;
 			}
-			
-			/*function test(message) {
-				const thediv = document.getElementById("stateUpdate");
-				let theelement = getChildElementById(thediv, "frameCount");
-				theelement.textContent = message;
-			}*/
 			
 			function stop() {
 				webSocket.close();
@@ -113,106 +85,106 @@
 	</head>
 	<body>
 		<br>
-		<h1 class="float-left">Connected: </h1><h1 class="thing-style" id="connect">OFF</h1>
+		<h1 class="float-left">Connected:&nbsp;</h1><h1 class="thing-style" id="connect">OFF</h1>
 		<br>
 		<div id="stateUpdate">
 			<h2 class="thing-style">State Update:</h2>
 			<br>
-			<p class="float-left">frame: </p><p class="float-left" id="frameCount">0</p>
-			<p class="float-left">, timer: </p><p class="thing-style" id="inGameTimer">0</p>
+			<p class="float-left">frame:&nbsp;</p><p class="float-left" id="frameCount">0</p>
+			<p class="float-left">, timer:&nbsp;</p><p class="thing-style" id="inGameTimer">0</p>
 			<div id="p1">
 				<h4>P1:</h4>
 				<br>
 				<p class="float-left">health:&nbsp;</p><p class="float-left" id="health">0</p>
-				<p class="float-left">, Pos X: </p><p class="float-left" id="posx">0</p>
-				<p class="float-left">, Pos Y: </p><p class="float-left" id="posy">0</p>
-				<p class="float-left">, Character: </p><p class="float-left" id="character">0</p>
-				<p class="float-left">, Previous Action: </p><p class="float-left" id="prevAction">0</p>
-				<p class="float-left">, Current Action: </p><p class="float-left" id="currAction">0</p>
-				<p class="float-left">, Heat: </p><p  class="thing-style" id="heat">0</p>
+				<p class="float-left">, Pos X:&nbsp;</p><p class="float-left" id="posx">0</p>
+				<p class="float-left">, Pos Y:&nbsp;</p><p class="float-left" id="posy">0</p>
+				<p class="float-left">, Character:&nbsp;</p><p class="float-left" id="character">0</p>
+				<p class="float-left">, Previous Action:&nbsp;</p><p class="float-left" id="prevAction">0</p>
+				<p class="float-left">, Current Action:&nbsp;</p><p class="float-left" id="currAction">0</p>
+				<p class="float-left">, Heat:&nbsp;</p><p  class="thing-style" id="heat">0</p>
 				<br>
-				<p class="float-left">Overdrive: </p><p class="float-left" id="Overdrive">0</p>
-				<p class="float-left">, Barrier: </p><p class="float-left" id="barrierGauge">0</p>
-				<p class="float-left">, Drive: </p><p class="float-left" id="drive">0</p>
-				<p class="float-left">, Max Drive: </p><p class="float-left" id="maxDrive">0</p>
-				<p class="float-left">, Side: </p><p class="float-left" id="side">0</p>
-				<p class="float-left">, OD time remaining: </p><p class="float-left" id="ODTimeRemaining">0</p>
-				<p class="float-left">, Move type: </p><p class="float-left" id="moveType">0</p>
-				<p class="float-left">, Active Flow: </p><p  class="thing-style" id="activeFlow">0</p>
+				<p class="float-left">Overdrive:&nbsp;</p><p class="float-left" id="Overdrive">0</p>
+				<p class="float-left">, Barrier:&nbsp;</p><p class="float-left" id="barrierGauge">0</p>
+				<p class="float-left">, Drive:&nbsp;</p><p class="float-left" id="drive">0</p>
+				<p class="float-left">, Max Drive:&nbsp;</p><p class="float-left" id="maxDrive">0</p>
+				<p class="float-left">, Side:&nbsp;</p><p class="float-left" id="side">0</p>
+				<p class="float-left">, OD time remaining:&nbsp;</p><p class="float-left" id="ODTimeRemaining">0</p>
+				<p class="float-left">, Move type:&nbsp;</p><p class="float-left" id="moveType">0</p>
+				<p class="float-left">, Active Flow:&nbsp;</p><p class="thing-style" id="activeFlow">0</p>
 			</div>
 			<div id="p2">
 				<h4>P2:</h4>
 				<br>
-				<p class="float-left">health: </p><p class="float-left" id="health">0</p>
-				<p class="float-left">, Pos X: </p><p class="float-left" id="posx">0</p>
-				<p class="float-left">, Pos Y: </p><p class="float-left" id="posy">0</p>
-				<p class="float-left">, Character: </p><p class="float-left" id="character">0</p>
-				<p class="float-left">, Previous Action: </p><p class="float-left" id="prevAction">0</p>
-				<p class="float-left">, Current Action: </p><p class="float-left" id="currAction">0</p>
-				<p class="float-left">, Heat: </p><p  class="thing-style" id="heat">0</p>
+				<p class="float-left">health:&nbsp;</p><p class="float-left" id="health">0</p>
+				<p class="float-left">, Pos X:&nbsp;</p><p class="float-left" id="posx">0</p>
+				<p class="float-left">, Pos Y:&nbsp;</p><p class="float-left" id="posy">0</p>
+				<p class="float-left">, Character:&nbsp;</p><p class="float-left" id="character">0</p>
+				<p class="float-left">, Previous Action:&nbsp;</p><p class="float-left" id="prevAction">0</p>
+				<p class="float-left">, Current Action:&nbsp;</p><p class="float-left" id="currAction">0</p>
+				<p class="float-left">, Heat:&nbsp;</p><p class="thing-style" id="heat">0</p>
 				<br>
-				<p class="float-left">Overdrive: </p><p class="float-left" id="Overdrive">0</p>
-				<p class="float-left">, Barrier: </p><p class="float-left" id="barrierGauge">0</p>
-				<p class="float-left">, Drive: </p><p class="float-left" id="drive">0</p>
-				<p class="float-left">, Max Drive: </p><p class="float-left" id="maxDrive">0</p>
-				<p class="float-left">, Side: </p><p class="float-left" id="side">0</p>
-				<p class="float-left">, OD time remaining: </p><p class="float-left" id="ODTimeRemaining">0</p>
-				<p class="float-left">, Move type: </p><p class="float-left" id="moveType">0</p>
-				<p class="float-left">, Active Flow: </p><p  class="thing-style" id="activeFlow">0</p>
+				<p class="float-left">Overdrive:&nbsp;</p><p class="float-left" id="Overdrive">0</p>
+				<p class="float-left">, Barrier:&nbsp;</p><p class="float-left" id="barrierGauge">0</p>
+				<p class="float-left">, Drive:&nbsp;</p><p class="float-left" id="drive">0</p>
+				<p class="float-left">, Max Drive:&nbsp;</p><p class="float-left" id="maxDrive">0</p>
+				<p class="float-left">, Side:&nbsp;</p><p class="float-left" id="side">0</p>
+				<p class="float-left">, OD time remaining:&nbsp;</p><p class="float-left" id="ODTimeRemaining">0</p>
+				<p class="float-left">, Move type:&nbsp;</p><p class="float-left" id="moveType">0</p>
+				<p class="float-left">, Active Flow:&nbsp;</p><p class="thing-style" id="activeFlow">0</p>
 			</div>
 		</div>
 		<br><br>
 		<div id="hitEvent">
 			<h2 class="thing-style">Hit Event:</h2>
 			<br>
-			<p class="float-left">frame: </p><p class="thing-style" id="frameCount">0</p>
+			<p class="float-left">frame:&nbsp;</p><p class="thing-style" id="frameCount">0</p>
 			<br>
-			<p class="float-left">Attacker: </p><p class="float-left" id="attacker">0</p>
-			<p class="float-left">, A Action: </p><p class="float-left" id="attackerAction">0</p>
-			<p class="float-left">, A Active Flow: </p><p class="float-left" id="attackerActiveFlow">0</p>
-			<p class="float-left">, Defender: </p><p class="float-left" id="defender">0</p>
-			<p class="float-left">, D Action: </p><p class="float-left" id="defenderAction">0</p>
-			<p class="float-left">, D Prev Action: </p><p class="float-left" id="defenderPrevAction">0</p>
-			<p class="float-left">, D Active Flow: </p><p class="thing-style" id="defenderActiveFlow">0</p>
+			<p class="float-left">Attacker:&nbsp;</p><p class="float-left" id="attacker">0</p>
+			<p class="float-left">, A Action:&nbsp;</p><p class="float-left" id="attackerAction">0</p>
+			<p class="float-left">, A Active Flow:&nbsp;</p><p class="float-left" id="attackerActiveFlow">0</p>
+			<p class="float-left">, Defender:&nbsp;</p><p class="float-left" id="defender">0</p>
+			<p class="float-left">, D Action:&nbsp;</p><p class="float-left" id="defenderAction">0</p>
+			<p class="float-left">, D Prev Action:&nbsp;</p><p class="float-left" id="defenderPrevAction">0</p>
+			<p class="float-left">, D Active Flow:&nbsp;</p><p class="thing-style" id="defenderActiveFlow">0</p>
 			<br>
-			<p class="float-left">Attack Level: </p><p class="float-left" id="attackLevel">0</p>
-			<p class="float-left">, Flags: </p><p class="float-left" id="attackFlag">0</p>
-			<p class="float-left">, Untech time: </p><p class="float-left" id="untechTime">0</p>
-			<p class="float-left">, Hitstop: </p><p class="float-left" id="hitstopOverride">0</p>
-			<p class="float-left">, Air Push X: </p><p class="float-left" id="airPushbackX">0</p>
-			<p class="float-left">, Air Push Y: </p><p class="float-left" id="airPushbackY">0</p>
-			<p class="float-left">, Damage: </p><p class="float-left" id="damage">0</p>
-			<p class="float-left">, Scaling: </p><p class="float-left" id="scalingTicks">0</p>
-			<p class="float-left">, Combo Count: </p><p class="thing-style" id="comboCount">0</p>
+			<p class="float-left">Attack Level:&nbsp;</p><p class="float-left" id="attackLevel">0</p>
+			<p class="float-left">, Flags:&nbsp;</p><p class="float-left" id="attackFlag">0</p>
+			<p class="float-left">, Untech time:&nbsp;</p><p class="float-left" id="untechTime">0</p>
+			<p class="float-left">, Hitstop:&nbsp;</p><p class="float-left" id="hitstopOverride">0</p>
+			<p class="float-left">, Air Push X:&nbsp;</p><p class="float-left" id="airPushbackX">0</p>
+			<p class="float-left">, Air Push Y:&nbsp;</p><p class="float-left" id="airPushbackY">0</p>
+			<p class="float-left">, Damage:&nbsp;</p><p class="float-left" id="damage">0</p>
+			<p class="float-left">, Scaling:&nbsp;</p><p class="float-left" id="scalingTicks">0</p>
+			<p class="float-left">, Combo Count:&nbsp;</p><p class="thing-style" id="comboCount">0</p>
 		</div>
 		<br><br>
 		<div id="guardEvent">
 			<h2 class="thing-style">Guard Event:</h2>
 			<br>
-			<p class="float-left">frame: </p><p  class="thing-style" id="frameCount">0</p>
+			<p class="float-left">frame:&nbsp;</p><p  class="thing-style" id="frameCount">0</p>
 			<br>
-			<p class="float-left">Attacker: </p><p class="float-left" id="attacker">0</p>
-			<p class="float-left">, A Action: </p><p class="float-left" id="attackerAction">0</p>
-			<p class="float-left">, A Active Flow: </p><p class="float-left" id="attackerActiveFlow">0</p>
-			<p class="float-left">, Defender: </p><p class="float-left" id="defender">0</p>
-			<p class="float-left">, D Action: </p><p class="float-left" id="defenderAction">0</p>
-			<p class="float-left">, D Active Flow: </p><p class="thing-style" id="defenderActiveFlow">0</p>
+			<p class="float-left">Attacker:&nbsp;</p><p class="float-left" id="attacker">0</p>
+			<p class="float-left">, A Action:&nbsp;</p><p class="float-left" id="attackerAction">0</p>
+			<p class="float-left">, A Active Flow:&nbsp;</p><p class="float-left" id="attackerActiveFlow">0</p>
+			<p class="float-left">, Defender:&nbsp;</p><p class="float-left" id="defender">0</p>
+			<p class="float-left">, D Action:&nbsp;</p><p class="float-left" id="defenderAction">0</p>
+			<p class="float-left">, D Active Flow:&nbsp;</p><p class="thing-style" id="defenderActiveFlow">0</p>
 			<br>
-			<p class="float-left">Attack Level: </p><p class="float-left" id="attackLevel">0</p>
-			<p class="float-left">, Move Type: </p><p class="thing-style" id="moveType">0</p>
+			<p class="float-left">Attack Level:&nbsp;</p><p class="float-left" id="attackLevel">0</p>
+			<p class="float-left">, Move Type:&nbsp;</p><p class="thing-style" id="moveType">0</p>
 		</div>
 		<br><br>
 		<div id="roundTransitionEvent">
 			<h2 class="thing-style">Round Transition Event:</h2>
 			<br>
-			<p class="float-left">frame: </p><p class="thing-style" id="frameCount">0</p>
+			<p class="float-left">frame:&nbsp;</p><p class="thing-style" id="frameCount">0</p>
 			<br>
-			<p class="float-left">Game Mode: </p><p class="float-left" id="currGameMode">0</p>
-			<p class="float-left">, Prev GM: </p><p class="float-left" id="prevGameMode">0</p>
-			<p class="float-left">, Game State: </p><p class="float-left" id="currGameState">0</p>
-			<p class="float-left">, Prev GS: </p><p class="float-left" id="prevGameState">0</p>
-			<p class="float-left">, Match State: </p><p class="float-left" id="currMatchState">0</p>
-			<p class="float-left">, Prev MS: </p><p class="thing-style" id="prevMatchState">0</p>
+			<p class="float-left">Game Mode:&nbsp;</p><p class="float-left" id="currGameMode">0</p>
+			<p class="float-left">, Prev GM:&nbsp;</p><p class="float-left" id="prevGameMode">0</p>
+			<p class="float-left">, Game State:&nbsp;</p><p class="float-left" id="currGameState">0</p>
+			<p class="float-left">, Prev GS:&nbsp;</p><p class="float-left" id="prevGameState">0</p>
+			<p class="float-left">, Match State:&nbsp;</p><p class="float-left" id="currMatchState">0</p>
+			<p class="float-left">, Prev MS:&nbsp;</p><p class="thing-style" id="prevMatchState">0</p>
 		</div>
 	</body>
 </html>
