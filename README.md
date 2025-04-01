@@ -2,7 +2,7 @@
 
 This mod exports Blazblue: Central Fiction's game state to any app you wish that is capable of reading WebSockets data. In particular: SAMMI, the streaming assistant, is targeted.
 Very WIP at the moment! Expect bugs, inconsistencies, and lack of data. Please get in contact (below), if you have questions/concerns!
-Questions?: Hopefully the're answered [here!](https://docs.google.com/document/d/1wVrbunJyMZw__5OuHEqPnuuUnRo1-um6jH0UhqnUtXk/)
+Questions?: Hopefully the're answered [here!](https://thelettuceclub.github.io/mods/)
 
 ## Installation
 1. Navigate to your BBCF install directory. You can right click on the game in Steam and then click "browse local files" under "manage" to get to the right folder.
